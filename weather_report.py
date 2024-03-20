@@ -19,7 +19,7 @@ material_url = "https://www.exchange-rates.org/zh/precious-metals"
 def get_price():
     # getting the request from url 
     data = requests.get(material_url)
-    price=''
+    price=[]
     price_fmt="{}:{}:{};"
     # converting the text 
     soup = BeautifulSoup(data.text, 'html5lib')
@@ -33,8 +33,8 @@ def get_price():
             material_trend='-'+str(tds[2].text).strip()
         else:
             material_trend='+'+str(tds[2].text).strip()
-        print(price_fmt.format(material_name,material_price,material_trend))
-        price = price_fmt.format(material_name,material_price,material_trend)
+        price.append(price_fmt.format(material_name,material_price,material_trend))
+    print(price)
     return price
 
 
@@ -47,10 +47,11 @@ def get_weather(my_city):
             "http://www.weather.com.cn/textFC/xb.shtml",
             "http://www.weather.com.cn/textFC/xn.shtml"
             ]
-    gold = get_price()[0];
-    silver = get_price()[1];
-    platinum = get_price()[2];
-    palladium = get_price()[3];
+    prices=get_price()
+    gold = prices[0];
+    silver = prices[1];
+    platinum = prices[2];
+    palladium = prices[3];
     for url in urls:
         resp = requests.get(url)
         text = resp.content.decode("utf-8")
@@ -93,7 +94,7 @@ def get_access_token():
     url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={}&secret={}' \
         .format(appID.strip(), appSecret.strip())
     response = requests.get(url).json()
-    print(response)
+    #print(response)
     access_token = response.get('access_token')
     return access_token
     
@@ -156,6 +157,7 @@ def send_weather(access_token, weather):
         }
     }
     url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}'.format(access_token)
+    print(body)
     print(requests.post(url, json.dumps(body)).text)
 
 
