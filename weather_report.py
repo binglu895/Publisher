@@ -16,7 +16,7 @@ material_url = "https://www.exchange-rates.org/zh/precious-metals"
 
 
 # method to get the price of gold
-def get_price(material):
+def get_price():
     # getting the request from url 
     data = requests.get(material_url)
     price=''
