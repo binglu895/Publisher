@@ -11,6 +11,8 @@ appSecret = os.environ.get("APP_SECRET")
 openId = os.environ.get("OPEN_ID")
 # 天气预报模板ID
 weather_template_id = os.environ.get("TEMPLATE_ID")
+# url of the gold price
+gold_url = "https://www.google.com / search?q = gold + price"
 
 def get_weather(my_city):
     urls = ["http://www.weather.com.cn/textFC/hb.shtml",
@@ -21,6 +23,7 @@ def get_weather(my_city):
             "http://www.weather.com.cn/textFC/xb.shtml",
             "http://www.weather.com.cn/textFC/xn.shtml"
             ]
+    ans = get_price(gold_url);
     for url in urls:
         resp = requests.get(url)
         text = resp.content.decode("utf-8")
@@ -55,7 +58,7 @@ def get_weather(my_city):
                     temp = f"{low_temp}——{high_temp}摄氏度" if high_temp != "-" else f"{low_temp}摄氏度"
                     weather_typ = weather_typ_day if weather_typ_day != "-" else weather_type_night
                     wind = f"{wind_day}" if wind_day != "--" else f"{wind_night}"
-                    return this_city, temp, weather_typ, wind
+                    return this_city, temp, weather_typ, wind, ans
 
 
 def get_access_token():
@@ -82,8 +85,7 @@ def get_price(url):
     # returning the price
     return ans
   
-# url of the gold price
-url = "https://www.google.com / search?q = gold + price"
+
 
 def get_daily_love():
     # 每日一句情话
