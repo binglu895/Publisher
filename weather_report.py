@@ -16,7 +16,7 @@ material_url = "https://www.exchange-rates.org/zh/precious-metals"
 
 
 # method to get the price of gold
-def get_price(material):
+def get_price():
     # getting the request from url 
     data = requests.get(material_url)
     price=[]
@@ -43,7 +43,10 @@ def get_weather(my_city):
             "http://www.weather.com.cn/textFC/xb.shtml",
             "http://www.weather.com.cn/textFC/xn.shtml"
             ]
-    gold = get_price("金");
+    gold = get_price()[0];
+    silver = get_price()[1];
+    platinum = get_price()[2];
+    palladium = get_price()[3];
     for url in urls:
         resp = requests.get(url)
         text = resp.content.decode("utf-8")
@@ -78,7 +81,7 @@ def get_weather(my_city):
                     temp = f"{low_temp}——{high_temp}摄氏度" if high_temp != "-" else f"{low_temp}摄氏度"
                     weather_typ = weather_typ_day if weather_typ_day != "-" else weather_type_night
                     wind = f"{wind_day}" if wind_day != "--" else f"{wind_night}"
-                    return this_city, temp, weather_typ, wind, gold
+                    return this_city, temp, weather_typ, wind, gold, silver, platinum, palladium
 
 
 def get_access_token():
