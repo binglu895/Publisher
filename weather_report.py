@@ -139,6 +139,15 @@ def send_weather(access_token, weather):
             },
             "gold_price": {
                 "value": weather[4]
+            },
+            "silber_price": {
+                "value": weather[5]
+            },
+            "platinum_price": {
+                "value": weather[6]
+            },
+            "palladium_price": {
+                "value": weather[7]
             }
         }
     }
