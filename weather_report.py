@@ -25,7 +25,7 @@ def get_price(url):
     # converting the text 
     soup = BeautifulSoup(data.text, 'html5lib')
     table_conMidtab = soup.find("table", class_="precious-metals-table")
-    trs = table.find_all("tr")[2:]
+    trs = table_conMidtab.find_all("tr")[2:]
     for index, tr in enumerate(trs):
         tds = tr.find_all("td")
         material_name=tds[1]
