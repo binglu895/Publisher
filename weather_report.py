@@ -12,27 +12,26 @@ openId = os.environ.get("OPEN_ID")
 # 天气预报模板ID
 weather_template_id = os.environ.get("TEMPLATE_ID")
 # url of the gold price
-gold_url = "https://www.exchange-rates.org/zh/precious-metals"
+material_url = "https://www.exchange-rates.org/zh/precious-metals"
 
 
 # method to get the price of gold
-def get_price(url):
-     
+def get_price(material):
     # getting the request from url 
-    data = requests.get(url)
+    data = requests.get(material_url)
     price=''
-    price_fmt="{} - {}; "
+    price_fmt="{} - {};"
     # converting the text 
     soup = BeautifulSoup(data.text, 'html5lib')
     table_conMidtab = soup.find("table", class_="precious-metals-table")
     trs = table_conMidtab.find_all("tr")[2:]
     for index, tr in enumerate(trs):
         tds = tr.find_all("td")
-        material_name=tds[1]
-        material_price=tds[2]
-        price += price_fmt.format(material_name,material_price)
-    
-    # returning the price
+        material_name=tds[0].contents
+        material_price=tds[1].contents.strip()
+        print(price_fmt.format(material_name,material_price))
+        if material_name==material:
+             price = price_fmt.format(material_name,material_price)
     return price
 
 
@@ -45,7 +44,7 @@ def get_weather(my_city):
             "http://www.weather.com.cn/textFC/xb.shtml",
             "http://www.weather.com.cn/textFC/xn.shtml"
             ]
-    ans = get_price(gold_url);
+    gold = get_price("金");
     for url in urls:
         resp = requests.get(url)
         text = resp.content.decode("utf-8")
@@ -80,7 +79,7 @@ def get_weather(my_city):
                     temp = f"{low_temp}——{high_temp}摄氏度" if high_temp != "-" else f"{low_temp}摄氏度"
                     weather_typ = weather_typ_day if weather_typ_day != "-" else weather_type_night
                     wind = f"{wind_day}" if wind_day != "--" else f"{wind_night}"
-                    return this_city, temp, weather_typ, wind, ans
+                    return this_city, temp, weather_typ, wind, gold
 
 
 def get_access_token():
