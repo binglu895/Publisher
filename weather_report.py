@@ -83,7 +83,7 @@ def get_weather(my_city):
                     wind_night = list(wind_td_day_night.stripped_strings)[0] + list(wind_td_day_night.stripped_strings)[1]
 
                     # 如果没有白天的数据就使用夜间的
-                    temp = f"{low_temp}——{high_temp}摄氏度" if high_temp != "-" else f"{low_temp}摄氏度"
+                    temp = f"{low_temp}~{high_temp}度" if high_temp != "-" else f"{low_temp}度"
                     weather_typ = weather_typ_day if weather_typ_day != "-" else weather_type_night
                     wind = f"{wind_day}" if wind_day != "--" else f"{wind_night}"
                     return this_city, temp, weather_typ, wind, gold, silver, platinum, palladium
