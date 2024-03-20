@@ -16,7 +16,7 @@ material_url = "https://www.exchange-rates.org/zh/precious-metals"
 
 
 # method to get the price of gold
-def get_price(material):
+def get_price():
     # getting the request from url 
     data = requests.get(material_url)
     price=''
@@ -29,11 +29,10 @@ def get_price(material):
         tds = tr.find_all("td")
         material_name=str(tds[0].text).strip()
         material_price=str(tds[1].text).strip()
-        material_trend=str(tds[2].text).strip()
         if tds[2].find("span",class_="rc-arrow arrow-red"):
-            material_trend='-'+material_trend
+            material_trend='-'+str(tds[2].text).strip()
         else:
-            material_trend='+'+material_trend
+            material_trend='+'+str(tds[2].text).strip()
         print(price_fmt.format(material_name,material_price,material_trend))
         price = price_fmt.format(material_name,material_price,material_trend)
     return price
