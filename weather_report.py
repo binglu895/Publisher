@@ -24,11 +24,11 @@ def get_price(material):
     # converting the text 
     soup = BeautifulSoup(data.text, 'html5lib')
     table_conMidtab = soup.find("table", class_="precious-metals-table")
-    trs = table_conMidtab.find_all("tr")[2:]
+    trs = table_conMidtab.find_all("tr")[1:]
     for index, tr in enumerate(trs):
         tds = tr.find_all("td")
-        material_name=tds[0].contents
-        material_price=tds[1].contents.strip()
+        material_name=str(tds[0].text).strip()
+        material_price=str(tds[1].text).strip()
         print(price_fmt.format(material_name,material_price))
         if material_name==material:
              price = price_fmt.format(material_name,material_price)
