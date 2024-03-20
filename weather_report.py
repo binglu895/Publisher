@@ -12,7 +12,7 @@ openId = os.environ.get("OPEN_ID")
 # 天气预报模板ID
 weather_template_id = os.environ.get("TEMPLATE_ID")
 # url of the gold price
-gold_url = "https://www.google.com / search?q = gold + price"
+gold_url = "https://www.exchange-rates.org/zh/precious-metals"
 
 def get_weather(my_city):
     urls = ["http://www.weather.com.cn/textFC/hb.shtml",
