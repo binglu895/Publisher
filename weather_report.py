@@ -30,7 +30,7 @@ def get_price(url):
         tds = tr.find_all("td")
         material_name=tds[1]
         material_price=tds[2]
-        price+ = price_fmt.format(material_name,material_price)
+        price += price_fmt.format(material_name,material_price)
     
     # returning the price
     return price
