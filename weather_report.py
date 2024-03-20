@@ -66,7 +66,24 @@ def get_access_token():
     print(response)
     access_token = response.get('access_token')
     return access_token
-
+    
+# method to get the price of gold
+def get_price(url):
+     
+    # getting the request from url 
+    data = requests.get(url)
+ 
+    # converting the text 
+    soup = BeautifulSoup(data.text, 'html.parser')
+ 
+    # finding meta info for the current price
+    ans = soup.find("div", class_ = "BNeawe s3v9rd AP7Wnd").text
+     
+    # returning the price
+    return ans
+  
+# url of the gold price
+url = "https://www.google.com / search?q = gold + price"
 
 def get_daily_love():
     # 每日一句情话
