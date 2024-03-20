@@ -19,7 +19,7 @@ material_url = "https://www.exchange-rates.org/zh/precious-metals"
 def get_price(material):
     # getting the request from url 
     data = requests.get(material_url)
-    price=''
+    price=[]
     price_fmt="{} - {};"
     # converting the text 
     soup = BeautifulSoup(data.text, 'html5lib')
@@ -30,8 +30,7 @@ def get_price(material):
         material_name=str(tds[0].text).strip()
         material_price=str(tds[1].text).strip()
         print(price_fmt.format(material_name,material_price))
-        if material_name==material:
-             price = price_fmt.format(material_name,material_price)
+        price.append(price_fmt.format(material_name,material_price))
     return price
 
 
