@@ -14,6 +14,28 @@ weather_template_id = os.environ.get("TEMPLATE_ID")
 # url of the gold price
 gold_url = "https://www.exchange-rates.org/zh/precious-metals"
 
+
+# method to get the price of gold
+def get_price(url):
+     
+    # getting the request from url 
+    data = requests.get(url)
+    price=''
+    price_fmt="{} - {}; "
+    # converting the text 
+    soup = BeautifulSoup(data.text, 'html5lib')
+    table_conMidtab = soup.find("table", class_="precious-metals-table")
+    trs = table.find_all("tr")[2:]
+    for index, tr in enumerate(trs):
+        tds = tr.find_all("td")
+        material_name=tds[1]
+        material_price=tds[2]
+        price+ = price_fmt.format(material_name,material_price)
+    
+    # returning the price
+    return price
+
+
 def get_weather(my_city):
     urls = ["http://www.weather.com.cn/textFC/hb.shtml",
             "http://www.weather.com.cn/textFC/db.shtml",
@@ -70,20 +92,7 @@ def get_access_token():
     access_token = response.get('access_token')
     return access_token
     
-# method to get the price of gold
-def get_price(url):
-     
-    # getting the request from url 
-    data = requests.get(url)
- 
-    # converting the text 
-    soup = BeautifulSoup(data.text, 'html.parser')
- 
-    # finding meta info for the current price
-    ans = soup.find("div", class_ = "BNeawe s3v9rd AP7Wnd").text
-     
-    # returning the price
-    return ans
+
   
 
 
