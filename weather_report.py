@@ -127,8 +127,8 @@ def send_weather(access_token, weather):
             "wind_dir": {
                 "value": weather[3]
             },
-            "today_note": {
-                "value": get_daily_love()
+            "gold_price": {
+                "value": weather[4]
             }
         }
     }
